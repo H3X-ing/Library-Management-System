@@ -18,11 +18,17 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r requirements.txt
+        pip install flask flask-wtf werkzeug
+
+    - name: Initialize the database
+      run: |
+        python -c "from app import init_db; init_db()"
 
     - name: Run Flask app in background
+      env:
+        FLASK_APP: app.py
       run: |
-        nohup python app.py &
+        nohup python app.py > flask.log 2>&1 &
         sleep 10
 
     - name: Run OWASP ZAP Baseline Scan
