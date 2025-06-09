@@ -380,8 +380,7 @@ def logout():
     return redirect(url_for('index'))
 
 if __name__ == '__main__':
-    if os.getenv("INIT_DB") == "1":
-        init_db()
-    else:
-        app.run(debug=True)
+    init_db()
+    app.run(debug=True)
+       
    
