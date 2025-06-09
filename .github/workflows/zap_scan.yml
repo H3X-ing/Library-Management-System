@@ -24,7 +24,7 @@ jobs:
       env:
         INIT_DB: "1"
       run: |
-        python -c "from library_management import init_db; init_db()"
+        python library_management.py
 
     - name: Run Flask app in background
       env:
@@ -37,3 +37,13 @@ jobs:
       uses: zaproxy/action-baseline@v0.10.0
       with:
         target: 'http://127.0.0.1:5000'
+        format: 'html'
+
+    - name: Upload ZAP Report
+      uses: actions/upload-artifact@v3
+      with:
+        name: zap_scan_report
+        path: |
+          report_html.html
+          report_md.md
+          report_json.json
