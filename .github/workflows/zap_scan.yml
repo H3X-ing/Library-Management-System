@@ -24,14 +24,13 @@ jobs:
       env:
         INIT_DB: "1"
       run: |
-       python app.py
-
+        python -c "from library_management import init_db; init_db()"
 
     - name: Run Flask app in background
       env:
-        FLASK_APP: app.py
+        FLASK_APP: library_management.py
       run: |
-        nohup python app.py > flask.log 2>&1 &
+        nohup python library_management.py > flask.log 2>&1 &
         sleep 10
 
     - name: Run OWASP ZAP Baseline Scan
