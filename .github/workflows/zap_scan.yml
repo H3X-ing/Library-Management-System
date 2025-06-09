@@ -21,8 +21,11 @@ jobs:
         pip install flask flask-wtf werkzeug
 
     - name: Initialize the database
+      env:
+        INIT_DB: "1"
       run: |
-        python -c "from app import init_db; init_db()"
+       python app.py
+
 
     - name: Run Flask app in background
       env:
